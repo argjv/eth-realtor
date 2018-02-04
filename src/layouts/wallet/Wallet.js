@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Dashboard extends Component {
+class Wallet extends Component {
   constructor(props, { authData }) {
     super(props)
     authData = this.props
@@ -11,9 +11,9 @@ class Dashboard extends Component {
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1">
-            <h1>Dashboard</h1>
-            <h2>{this.props.authData.name}'s transaction history</h2>
-            <p>If you're seeing this page, you've logged in with your own smart contract successfully.</p>
+            <h1>Wallet</h1>
+            <h2>{this.props.authData.name}'s wallet</h2>
+            <p>This page contains the user wallet information and operations.</p>
           </div>
         </div>
       </main>
@@ -21,4 +21,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+export default Wallet
