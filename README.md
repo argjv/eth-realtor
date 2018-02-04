@@ -7,9 +7,8 @@ The project aims simplify the proccess of real estate properties management by u
 * Truffle
 * Ganache
 * NodeJS
-* MongoDB
 
-## Start the frontend
+## Run the project
 
 Once downloaded the project, go to the root folder and run:
 
