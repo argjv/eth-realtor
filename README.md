@@ -10,9 +10,18 @@ The project aims simplify the proccess of real estate properties management by u
 
 ## Run the project
 
-Once downloaded the project, go to the root folder and run:
+1. Start ganache and verify it is serving in http://127.0.0.1:7545
+2. Go to the root folder and compile and upload the ethereum contracts into the test network managed by Ganache:
+
+```shell
+truffle compile
+truffle migrate
+```
+
+3. Start the server:
 
 ```shell
 npm run start
 ```
-This will start a server in http://localhost:3000 or in the enxt available port if it's in use.
+
+This will start a server in http://localhost:3000 or in the next available port if it's in use.
