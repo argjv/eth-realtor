@@ -42,6 +42,7 @@ export function loginUser() {
             // If no error, login user.
             var userName = web3.toUtf8(result)
 
+            console.log("Dispatching login");
             dispatch(userLoggedIn({"name": userName}))
 
             // Used a manual redirect here as opposed to a wrapper.
