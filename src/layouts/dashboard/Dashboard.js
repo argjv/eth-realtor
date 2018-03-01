@@ -13,8 +13,7 @@ class Dashboard extends Component {
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1">
-            <h1>Dashboard</h1>
-            <h2>{this.props.authData.name}'s transaction history</h2>
+            <h1>{this.props.authData.name}'s transaction history</h1>
           </div>
           <TransactionTableContainer />
         </div>

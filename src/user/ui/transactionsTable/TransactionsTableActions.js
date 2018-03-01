@@ -1,9 +1,16 @@
 import store from '../../../store'
 
-export const TABLE_LOAD = 'TABLE_LOAD'
-function tableLoaded(transactionsPayload) {
+export const REQUEST_TRANSACTIONS = 'REQUEST_TRANSACTIONS'
+function requestTransactions() {
   return {
-    type: TABLE_LOAD,
+    type: REQUEST_TRANSACTIONS
+  }
+}
+
+export const RECEIVE_TRANSACTIONS = 'RECEIVE_TRANSACTIONS'
+function receiveTransactions(transactionsPayload) {
+  return {
+    type: RECEIVE_TRANSACTIONS,
     payload: transactionsPayload
   }
 }
@@ -16,30 +23,26 @@ export function getTransactions(startBlockNumber, endBlockNumber) {
     // Double-check web3's status.
     if (typeof web3 !== 'undefined') {
       return function(dispatch) {
-        web3.eth.getCoinbase((error, coinbase) => {
+        dispatch(requestTransactions());
+        return web3.eth.getCoinbase((error, coinbase) => {
           // Log errors, if any.
           if (error) {
             console.error(error);
           }
           if (endBlockNumber == null) {
             endBlockNumber = web3.eth.blockNumber;
-            console.log("Using endBlockNumber: " + endBlockNumber);
           }
           if (startBlockNumber == null) {
             startBlockNumber = endBlockNumber - 1000;
             if (startBlockNumber < 0) {
               startBlockNumber = 0
             }
-            console.log("Using startBlockNumber: " + startBlockNumber);
           }
-          console.log("Searching for transactions to/from account \"" + coinbase + "\" within blocks "  + startBlockNumber + " and " + endBlockNumber);
+          // console.log("Searching for transactions to/from account \"" + coinbase + "\" within blocks "  + startBlockNumber + " and " + endBlockNumber);
           userCoinbase = coinbase;
 
-          for (var i = startBlockNumber; i <= endBlockNumber; i++) {
-            if (i % 1000 === 0) {
-              console.log("Searching block " + i);
-            }
-            var block = web3.eth.getBlock(i, true);
+          for (let i = startBlockNumber; i <= endBlockNumber; i++) {
+            let block = web3.eth.getBlock(i, true);
             if (block != null && block.transactions != null) {
               block.transactions.forEach( function(e) {
                 if (coinbase === "*" || coinbase === e.from || coinbase === e.to) {
@@ -61,11 +64,10 @@ export function getTransactions(startBlockNumber, endBlockNumber) {
               })
             }
           }
-          console.log("Dispatching transactions");
-          dispatch(tableLoaded({
-            "coinbase": userCoinbase,
-            "inTransactions": inTransactionsData,
-            "outTransactions": outTransactionsData
+          dispatch(receiveTransactions({
+            coinbase: userCoinbase,
+            inTransactions: inTransactionsData,
+            outTransactions: outTransactionsData
           }))
         })
       }

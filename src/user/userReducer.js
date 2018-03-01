@@ -7,18 +7,24 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   if (action.type === 'USER_LOGGED_IN' || action.type === 'USER_UPDATED') {
-    console.log("USER_LOGGED_IN or USER_UPDATED")
     return Object.assign({}, state, action.payload)
   }
 
   if (action.type === 'USER_LOGGED_OUT') {
-    console.log("USER_LOGGED_OUT")
     return Object.assign({}, state, initialState)
   }
 
-  if (action.type === 'TABLE_LOAD') {
-    console.log("TABLE_LOAD")
+  if (action.type === 'REQUEST_TRANSACTIONS') {
+    console.log("REQUEST_TRANSACTIONS: ", Object.assign({}, state, action.payload))
     return Object.assign({}, state, action.payload)
+  }
+
+  if (action.type === 'RECEIVE_TRANSACTIONS') {
+    console.log("RECEIVE_TRANSACTIONS: ",Object.assign({}, state, action.payload))
+    return Object.assign({}, state, {
+      inTransactions: action.payload.inTransactions,
+      outTransactions: action.payload.outTransactions
+    })
   }
 
   return state
