@@ -3,10 +3,10 @@ import TransactionsTable from './TransactionsTable'
 import { getTransactions } from './TransactionsTableActions'
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state)
   return {
-    name: state.user.data.name,
-    coinbase: state.user.data.coinbase,
-    transactionsData: state.user.data.transactionsData
+    inTransactionsData: state.user.inTransactionsData,
+    outTransactionsData: state.user.outTransactionsData
   }
 }
 

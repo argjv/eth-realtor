@@ -10,7 +10,8 @@ function tableLoaded(transactionsPayload) {
 
 export function getTransactions(startBlockNumber, endBlockNumber) {
     let web3 = store.getState().web3.web3Instance
-    let transactionsData = []
+    let inTransactionsData = []
+    let outTransactionsData = []
     let userCoinbase = ""
     // Double-check web3's status.
     if (typeof web3 !== 'undefined') {
@@ -45,13 +46,17 @@ export function getTransactions(startBlockNumber, endBlockNumber) {
                   let transaction = {
                     "from": e.from,
                     "to": e.to,
-                    "time": block.timestamp + " " + new Date(block.timestamp * 1000).toGMTString(),
+                    "time": new Date(block.timestamp * 1000).toGMTString(),
                     "value": e.value,
                     "gasPrice": e.gasPrice,
                     "gas": e.gas,
                     "blockNumber": e.blockNumber
                   }
-                  transactionsData.push(transaction);
+                  if (coinbase === e.from) {
+                    outTransactionsData.push(transaction);
+                  } else {
+                    inTransactionsData.push(transaction);
+                  }
                 }
               })
             }
@@ -59,7 +64,8 @@ export function getTransactions(startBlockNumber, endBlockNumber) {
           console.log("Dispatching transactions");
           dispatch(tableLoaded({
             "coinbase": userCoinbase,
-            "transactionsData": transactionsData
+            "inTransactions": inTransactionsData,
+            "outTransactions": outTransactionsData
           }))
         })
       }
