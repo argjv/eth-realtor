@@ -8,7 +8,7 @@ class Wallet extends Component {
         return (
           <div className="pure-u-1-1">
             <p>Wallet: {this.props.coinbase}</p>
-            <p>Balance: {this.props.balance} wei ({(this.props.balance / 1000000000000000000).toFixed(4)} eth)</p>
+            <p>Balance: {this.props.balance} RT</p>
           </div>
         )
     }

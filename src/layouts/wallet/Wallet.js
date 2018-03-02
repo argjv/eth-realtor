@@ -13,8 +13,7 @@ class Wallet extends Component {
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1">
-            <h1>Wallet</h1>
-            <h2>{this.props.authData.name}'s wallet</h2>
+            <h1>{this.props.authData.name}'s wallet</h1>
             <p>This page contains the user wallet information and operations.</p>
             <WalletContainer />
           </div>
