@@ -3,7 +3,6 @@ import TransactionsTable from './TransactionsTable'
 import { getTransactions } from './TransactionsTableActions'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('mapStateToProps: ', state)
   return {
     inTransactionsData: state.user.inTransactions,
     outTransactionsData: state.user.outTransactions

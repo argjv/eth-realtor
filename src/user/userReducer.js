@@ -2,7 +2,8 @@ const initialState = {
   inTransactions: [],
   outTransactions: [],
   coinbase: '',
-  name: ''
+  name: '',
+  balance: 0
 }
 
 const userReducer = (state = initialState, action) => {
@@ -15,16 +16,15 @@ const userReducer = (state = initialState, action) => {
   }
 
   if (action.type === 'REQUEST_TRANSACTIONS') {
-    console.log("REQUEST_TRANSACTIONS: ", Object.assign({}, state, action.payload))
     return Object.assign({}, state, action.payload)
   }
 
   if (action.type === 'RECEIVE_TRANSACTIONS') {
-    console.log("RECEIVE_TRANSACTIONS: ",Object.assign({}, state, action.payload))
-    return Object.assign({}, state, {
-      inTransactions: action.payload.inTransactions,
-      outTransactions: action.payload.outTransactions
-    })
+    return Object.assign({}, state, action.payload)
+  }
+
+  if (action.type === 'UPDATE_BALANCE') {
+    return Object.assign({}, state, action.payload)
   }
 
   return state
