@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Wallet from './Wallet'
-import { getBalance } from './WalletActions'
+import { getBalance, transfer } from './WalletActions'
 
 const mapStateToProps = (state, ownProps) => {
   console.log('mapStateToProps: ', state)
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onWalletLoadGetBalance: (coinbase) => {
       dispatch(getBalance(coinbase))
+    },
+    onTransferSubmit: (address, amount) => {
+      dispatch(transfer(address, amount))
     }
   }
 }

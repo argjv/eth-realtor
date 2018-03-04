@@ -1,6 +1,7 @@
 pragma solidity ^0.4.2;
 
 import './zeppelin/lifecycle/Killable.sol';
+import './RealtorToken.sol';
 
 contract Authentication is Killable {
   struct User {
@@ -8,6 +9,7 @@ contract Authentication is Killable {
   }
 
   mapping (address => User) private users;
+  RealtorToken private _realtorToken;
 
   uint private id; // Stores user id temporarily
 
@@ -28,7 +30,8 @@ contract Authentication is Killable {
   function login() constant
   public
   onlyExistingUser
-  returns (bytes32) {
+  returns (bytes32)
+  {
     return (users[msg.sender].name);
   }
 
@@ -36,15 +39,17 @@ contract Authentication is Killable {
   public
   payable
   onlyValidName(name)
-  returns (bytes32) {
+  returns (bytes32)
+  {
     // Check if user exists.
     // If yes, return user name.
     // If no, check if name was sent.
     // If yes, create and return user.
 
-    if (users[msg.sender].name == 0x0)
-    {
+    if (users[msg.sender].name == 0x0) {
         users[msg.sender].name = name;
+        _realtorToken = RealtorToken(msg.sender);
+        _realtorToken.addUser(msg.sender);
 
         return (users[msg.sender].name);
     }
@@ -57,11 +62,11 @@ contract Authentication is Killable {
   payable
   onlyValidName(name)
   onlyExistingUser
-  returns (bytes32) {
+  returns (bytes32)
+  {
     // Update user name.
 
-    if (users[msg.sender].name != 0x0)
-    {
+    if (users[msg.sender].name != 0x0) {
         users[msg.sender].name = name;
 
         return (users[msg.sender].name);

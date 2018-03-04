@@ -12,7 +12,7 @@ class TransactionsTable extends Component {
         <h2>Received transactions history</h2>
         <BootstrapTable tableContainerClass="pure-table table-striped" data={this.props.inTransactionsData} headers={true} >
           <TableHeaderColumn dataField='from' isKey={ true }> From</TableHeaderColumn>
-          <TableHeaderColumn dataField='Time' columnClassName='td-column-string-example'>Time</TableHeaderColumn>
+          <TableHeaderColumn dataField='time' columnClassName='td-column-string-example'>Time</TableHeaderColumn>
           <TableHeaderColumn dataField='value' columnClassName='td-column-string-example'>Value</TableHeaderColumn>
           <TableHeaderColumn dataField='gasPrice' columnClassName='td-column-string-example'>Gas Price</TableHeaderColumn>
           <TableHeaderColumn dataField='gas' columnClassName='td-column-string-example'>Gas</TableHeaderColumn>
@@ -21,7 +21,7 @@ class TransactionsTable extends Component {
         <h2>Sent transactions history</h2>
         <BootstrapTable tableContainerClass="pure-table table-striped" data={this.props.outTransactionsData} headers={true} >
           <TableHeaderColumn dataField='to' isKey={ true } >To</TableHeaderColumn>
-          <TableHeaderColumn dataField='Time' columnClassName='td-column-string-example'>Time</TableHeaderColumn>
+          <TableHeaderColumn dataField='time' columnClassName='td-column-string-example'>Time</TableHeaderColumn>
           <TableHeaderColumn dataField='value' columnClassName='td-column-string-example'>Value</TableHeaderColumn>
           <TableHeaderColumn dataField='gasPrice' columnClassName='td-column-string-example'>Gas Price</TableHeaderColumn>
           <TableHeaderColumn dataField='gas' columnClassName='td-column-string-example'>Gas</TableHeaderColumn>

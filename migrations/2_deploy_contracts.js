@@ -4,10 +4,10 @@ var Authentication = artifacts.require("./Authentication.sol");
 var RealtorToken = artifacts.require("./RealtorToken.sol");
 
 module.exports = function(deployer) {
+  deployer.deploy(RealtorToken);
   deployer.deploy(Ownable);
   deployer.link(Ownable, Killable);
   deployer.deploy(Killable);
   deployer.link(Killable, Authentication);
   deployer.deploy(Authentication);
-  deployer.deploy(RealtorToken);
 };
