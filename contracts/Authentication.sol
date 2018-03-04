@@ -1,7 +1,6 @@
 pragma solidity ^0.4.2;
 
 import './zeppelin/lifecycle/Killable.sol';
-import './RealtorToken.sol';
 
 contract Authentication is Killable {
   struct User {
@@ -9,7 +8,6 @@ contract Authentication is Killable {
   }
 
   mapping (address => User) private users;
-  RealtorToken private _realtorToken;
 
   uint private id; // Stores user id temporarily
 
@@ -48,8 +46,6 @@ contract Authentication is Killable {
 
     if (users[msg.sender].name == 0x0) {
         users[msg.sender].name = name;
-        _realtorToken = RealtorToken(msg.sender);
-        _realtorToken.addUser(msg.sender);
 
         return (users[msg.sender].name);
     }

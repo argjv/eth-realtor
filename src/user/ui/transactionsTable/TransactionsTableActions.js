@@ -17,7 +17,6 @@ function receiveTransactions(transactionsPayload) {
 
 export function getTransactions() {
     let web3 = store.getState().web3.web3Instance
-    let userCoinbase = ""
     let endBlockNumber = 0
     let startBlockNumber = 0
     // Double-check web3's status.
