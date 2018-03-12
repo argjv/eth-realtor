@@ -1,6 +1,6 @@
 # eth-realtor
 
-The project aims simplify the proccess of real estate properties management by using ethereum smart contracts.
+The project aims to simplify the process of managing real estate properties by using ethereum smart contracts to replace paper trail and legacy processes.
 
 ## Requirements
 
