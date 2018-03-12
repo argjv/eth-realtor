@@ -1,4 +1,4 @@
-import AuthenticationContract from '../../../../build/contracts/Authentication.json'
+import RealtorContract from '../../../../build/contracts/RealtorToken.json'
 import { browserHistory } from 'react-router'
 import store from '../../../store'
 
@@ -19,12 +19,9 @@ export function loginUser() {
   if (typeof web3 !== 'undefined') {
 
     return function(dispatch) {
-      // Using truffle-contract we create the authentication object.
-      const authentication = contract(AuthenticationContract)
-      authentication.setProvider(web3.currentProvider)
-
-      // Declaring this for later so we can chain functions on Authentication.
-      var authenticationInstance
+      const realtor = contract(RealtorContract);
+      realtor.setProvider(web3.currentProvider);
+      let realtorInstance;
 
       // Get current ethereum wallet.
       web3.eth.getCoinbase((error, coinbase) => {
@@ -33,11 +30,9 @@ export function loginUser() {
           console.error(error);
         }
 
-        authentication.deployed().then(function(instance) {
-          authenticationInstance = instance
-
-          // Attempt to login user.
-          authenticationInstance.login({from: coinbase})
+        realtor.deployed().then(function(instance) {
+          realtorInstance = instance;
+          realtorInstance.login({from: coinbase})
           .then(function(result) {
             // If no error, login user.
             var userName = web3.toUtf8(result)
@@ -59,7 +54,7 @@ export function loginUser() {
           .catch(function(result) {
             // If error, go to signup page.
             console.error('Wallet ' + coinbase + ' does not have an account! Error: ' + result)
-
+  
             return browserHistory.push('/signup')
           })
         })

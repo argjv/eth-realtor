@@ -8,6 +8,7 @@ contract Authentication is Killable {
   }
 
   mapping (address => User) private users;
+  uint numUsers;
 
   uint private id; // Stores user id temporarily
 
@@ -46,10 +47,8 @@ contract Authentication is Killable {
 
     if (users[msg.sender].name == 0x0) {
         users[msg.sender].name = name;
-
-        return (users[msg.sender].name);
     }
-
+    numUsers++;
     return (users[msg.sender].name);
   }
 

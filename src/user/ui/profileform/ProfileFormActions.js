@@ -1,4 +1,4 @@
-import AuthenticationContract from '../../../../build/contracts/Authentication.json'
+import RealtorContract from '../../../../build/contracts/RealtorToken.json'
 import store from '../../../store'
 
 const contract = require('truffle-contract')
@@ -18,12 +18,9 @@ export function updateUser(name) {
   if (typeof web3 !== 'undefined') {
 
     return function(dispatch) {
-      // Using truffle-contract we create the authentication object.
-      const authentication = contract(AuthenticationContract)
-      authentication.setProvider(web3.currentProvider)
-
-      // Declaring this for later so we can chain functions on Authentication.
-      var authenticationInstance
+      const realtor = contract(RealtorContract);
+      realtor.setProvider(web3.currentProvider);
+      let realtorInstance;
 
       // Get current ethereum wallet.
       web3.eth.getCoinbase((error, coinbase) => {
@@ -32,11 +29,11 @@ export function updateUser(name) {
           console.error(error);
         }
 
-        authentication.deployed().then(function(instance) {
-          authenticationInstance = instance
+        realtor.deployed().then(function(instance) {
+          realtorInstance = instance
 
           // Attempt to login user.
-          authenticationInstance.update(name, {from: coinbase})
+          realtorInstance.update(name, {from: coinbase})
           .then(function(result) {
             // If no error, update user.
 
