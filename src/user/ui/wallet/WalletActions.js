@@ -68,7 +68,7 @@ export function transfer(toAddress, amount) {
                     realtorTokenInstance = instance;
                     console.log(web3.isAddress(fromAddress));
                     console.log(web3.isAddress(toAddress));
-                    return realtorTokenInstance.transferFrom(fromAddress, toAddress, amount);
+                    return realtorTokenInstance.transfer(toAddress, amount, {from: fromAddress});
                 }).then(function(result) {
                     alert('Transfer Successful!');
                     console.log("result: ", result)

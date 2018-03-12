@@ -32,13 +32,9 @@ export function updateUser(name) {
         realtor.deployed().then(function(instance) {
           realtorInstance = instance
 
-          // Attempt to login user.
           realtorInstance.update(name, {from: coinbase})
           .then(function(result) {
-            // If no error, update user.
-
             dispatch(userUpdated({"name": name}))
-
             return alert('Name updated!')
           })
           .catch(function(result) {
