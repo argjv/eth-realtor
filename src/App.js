@@ -24,6 +24,9 @@ class App extends Component {
           <Link to="/wallet" className="pure-menu-link">Wallet</Link>
         </li>
         <li className="pure-menu-item">
+          <Link to="/property" className="pure-menu-link">Properties</Link>
+        </li>
+        <li className="pure-menu-item">
           <Link to="/profile" className="pure-menu-link">Profile</Link>
         </li>
         <LogoutButtonContainer />

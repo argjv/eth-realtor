@@ -11,6 +11,7 @@ import App from './App'
 import Home from './layouts/home/Home'
 import Dashboard from './layouts/dashboard/Dashboard'
 import Wallet from './layouts/wallet/Wallet'
+import Property from './layouts/property/Property'
 import SignUp from './user/layouts/signup/SignUp'
 import Profile from './user/layouts/profile/Profile'
 
@@ -38,6 +39,7 @@ ReactDOM.render((
           <Route path="wallet" component={UserIsAuthenticated(Wallet)} />
           <Route path="signup" component={UserIsNotAuthenticated(SignUp)} />
           <Route path="profile" component={UserIsAuthenticated(Profile)} />
+          <Route path="property" component={UserIsAuthenticated(Property)} />
         </Route>
       </Router>
     </Provider>
