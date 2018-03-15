@@ -11,7 +11,7 @@ function addNewProperty(propertyData) {
   }
 }
 
-export function addProperty(propertyData) {
+export function addProperty(propertyId) {
   let web3 = store.getState().web3.web3Instance
   if (typeof web3 !== 'undefined') {
     return function(dispatch) {
@@ -26,8 +26,17 @@ export function addProperty(propertyData) {
 
         realtor.deployed().then(function(instance) {
           realtorInstance = instance;
-          console.log('Add property logic goes here');
-          return dispatch(addNewProperty(propertyData))
+          console.log('Adding property: ', propertyId, 'under address: ', coinbase);
+          realtorInstance.registerProperty(propertyId, {from: coinbase})
+          .then(function(result) {
+            let propertyData = {
+              address1: propertyId
+            }
+            return dispatch(addNewProperty(propertyData))
+          })
+          .catch(function(result) {
+            console.log(result);
+          })
         })
       })
     }

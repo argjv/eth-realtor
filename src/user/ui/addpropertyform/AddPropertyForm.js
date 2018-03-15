@@ -19,7 +19,7 @@ class AddPropertyForm extends Component {
   }
 
   onInputChange(event) {
-    this.setState({ address: event.target.value })
+    this.setState({ address1: event.target.value })
   }
 
   handleSubmit(event) {
