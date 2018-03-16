@@ -1,4 +1,4 @@
-# eth-realtor
+# eth-realtor (FrontEnd)
 
 The project aims to simplify the process of managing real estate properties by using ethereum smart contracts to replace paper trail and legacy processes.
 
