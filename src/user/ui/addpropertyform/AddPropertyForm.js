@@ -14,12 +14,11 @@ class AddPropertyForm extends Component {
       baths: 0,
       sqft: 0,
       price: 0
-
     }
   }
 
   onInputChange(event) {
-    this.setState({ address1: event.target.value })
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   handleSubmit(event) {
@@ -29,8 +28,7 @@ class AddPropertyForm extends Component {
     {
       return alert('Please fill in the property address.')
     }
-
-    this.props.onAddPropertyFormSubmit(this.state.address1)
+    this.props.onAddPropertyFormSubmit(this.state)
   }
 
   render() {
@@ -42,28 +40,28 @@ class AddPropertyForm extends Component {
                 <input id="address1" type="text" value={this.state.address1} onChange={this.onInputChange.bind(this)} placeholder="Address" />
 
                 <label htmlFor="address2">Apartment/suite number</label>
-                <input id="address2" type="text" value={this.state.address2} placeholder="apt/suite #" />
+                <input id="address2" type="text" value={this.state.address2} onChange={this.onInputChange.bind(this)} placeholder="apt/suite #" />
 
                 <label htmlFor="city">City</label>
-                <input id="city" type="text" value={this.state.city} placeholder="City" />
+                <input id="city" type="text" value={this.state.city} onChange={this.onInputChange.bind(this)} placeholder="City" />
 
                 <label htmlFor="zip">Zip code</label>
-                <input id="zip" type="text" value={this.state.zip} placeholder="Zip" />
+                <input id="zip" type="text" value={this.state.zip} onChange={this.onInputChange.bind(this)} placeholder="Zip" />
 
                 <label htmlFor="estate">Estate</label>
-                <input id="estate" type="text" value={this.state.estate} placeholder="Estate" />
+                <input id="estate" type="text" value={this.state.estate} onChange={this.onInputChange.bind(this)} placeholder="Estate" />
 
                 <label htmlFor="beds">Number of bedrooms</label>
-                <input id="beds" type="text" value={this.state.beds} placeholder="Bedrooms" />
+                <input id="beds" type="text" value={this.state.beds} onChange={this.onInputChange.bind(this)} placeholder="Bedrooms" />
 
                 <label htmlFor="baths">Number of bathrooms</label>
-                <input id="baths" type="text" value={this.state.baths} placeholder="Bathrooms" />
+                <input id="baths" type="text" value={this.state.baths} onChange={this.onInputChange.bind(this)} placeholder="Bathrooms" />
 
                 <label htmlFor="sqft">Covered square footage</label>
-                <input id="sqft" type="text" value={this.state.sqft} placeholder="sqft" />
+                <input id="sqft" type="text" value={this.state.sqft} onChange={this.onInputChange.bind(this)} placeholder="sqft" />
 
                 <label htmlFor="price">Selling price</label>
-                <input id="price" type="text" value={this.state.price} placeholder="Price" />
+                <input id="price" type="text" value={this.state.price} onChange={this.onInputChange.bind(this)} placeholder="Price" />
 
                 <br />
 
