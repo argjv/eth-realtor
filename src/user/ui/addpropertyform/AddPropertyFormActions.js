@@ -27,8 +27,9 @@ export function addProperty(propertyData) {
 
         realtor.deployed().then(function(instance) {
           realtorInstance = instance;
+          // TODO: build a hash to use as a property id
           console.log('Adding property: ', propertyData.address1, 'under address: ', coinbase);
-          realtorInstance.registerProperty(propertyData.address1, {from: coinbase})
+          realtorInstance.registerProperty(propertyData.address1, propertyData.price, {from: coinbase})
           .then(function(result) {
             // If the property was added to the blockchain, add the extra info to our database
             Object.assign(propertyData, {owner: coinbase});

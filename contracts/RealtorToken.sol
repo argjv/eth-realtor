@@ -7,8 +7,12 @@ contract RealtorToken is StandardToken, Authentication {
     string public name = "RealtorToken";
     string public symbol = "RT";
     uint8 public decimals = 18;
-    // First param is the property id and second one is the owners wallet address
-    mapping (string => address) private properties;
+    struct Property {
+        address owner;
+        uint256 price;
+    }
+    // First param is the property id and second one is the property details
+    mapping (string => Property) private properties;
 
     uint256 public constant INITIAL_SUPPLY = 1000000;
 
@@ -23,10 +27,11 @@ contract RealtorToken is StandardToken, Authentication {
         Transfer(0x0, msg.sender, INITIAL_SUPPLY);
     }
 
-    function registerProperty(string propertyId) public {
+    function registerProperty(string propertyId, uint256 propertyPrice) public {
         // TODO: Verify the user exists in the database.
         // TODO: Verify the property is not registered already.
-        properties[propertyId] = msg.sender;
+        properties[propertyId].owner = msg.sender;
+        properties[propertyId].price = propertyPrice;
         PropertyRegistered(propertyId, msg.sender);
     }
 }
