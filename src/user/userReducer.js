@@ -2,6 +2,7 @@ const initialState = {
   inTransactions: [],
   outTransactions: [],
   tmpTransactions: [],
+  transactionsLastBlockUpdate: 0,
   coinbase: '',
   name: '',
   balance: 0
@@ -24,7 +25,8 @@ const userReducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       coinbase: action.payload.coinbase,
       inTransactions: state.inTransactions.concat(action.payload.inTransactions),
-      outTransactions: state.outTransactions.concat(action.payload.outTransactions)
+      outTransactions: state.outTransactions.concat(action.payload.outTransactions),
+      transactionsLastBlockUpdate: action.payload.transactionsLastBlockUpdate
     })
   }
 
@@ -34,7 +36,7 @@ const userReducer = (state = initialState, action) => {
 
   if (action.type === 'TRANSFER_TOKENS') {
     return Object.assign({}, state, {
-      tmpTransactions: [action.payload] 
+      tmpTransactions: [action.payload]
     })
   }
 

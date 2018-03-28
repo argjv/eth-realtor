@@ -17,20 +17,19 @@ function receiveTransactions(transactionsPayload) {
 
 export function getTransactions() {
     let web3 = store.getState().web3.web3Instance
-    let endBlockNumber = 0
-    let startBlockNumber = 0
+    let startBlockNumber = store.getState().user.transactionsLastBlockUpdate;
     // Double-check web3's status.
     if (typeof web3 !== 'undefined') {
       return function(dispatch) {
         dispatch(requestTransactions());
-        
+
         return web3.eth.getCoinbase((error, coinbase) => {
           // Log errors, if any.
           if (error) {
             console.error(error);
           }
           web3.eth.getBlock("latest", (error, latestBlock) => {
-            endBlockNumber = latestBlock.number;
+            let endBlockNumber = latestBlock.number;
             console.log("Searching for transactions to/from account \"" + coinbase + "\" within blocks "  + startBlockNumber + " and " + endBlockNumber);
             for (let i = startBlockNumber; i <= endBlockNumber; i++) {
               web3.eth.getBlock(i, true, (error, block) => {
@@ -56,7 +55,8 @@ export function getTransactions() {
                       dispatch(receiveTransactions({
                         coinbase: coinbase,
                         inTransactions: inTransactionsData,
-                        outTransactions: outTransactionsData
+                        outTransactions: outTransactionsData,
+                        transactionsLastBlockUpdate: endBlockNumber
                       }))
                     }
                   })
