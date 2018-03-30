@@ -10,6 +10,11 @@ contract RealtorToken is StandardToken, Authentication {
     struct Property {
         address owner;
         uint256 price;
+        // Valid state numbers are:
+        // 0: Off market
+        // 1: On market
+        // 2: Pending
+        uint8 state;
     }
     // First param is the property id and second one is the property details
     mapping (string => Property) private properties;
@@ -32,6 +37,7 @@ contract RealtorToken is StandardToken, Authentication {
         // TODO: Verify the property is not registered already.
         properties[propertyId].owner = msg.sender;
         properties[propertyId].price = propertyPrice;
+        properties[propertyId].state = 0;
         PropertyRegistered(propertyId, msg.sender);
     }
 }
