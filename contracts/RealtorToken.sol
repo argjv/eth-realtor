@@ -10,13 +10,36 @@ contract RealtorToken is StandardToken, Authentication {
     struct Property {
         address owner;
         uint256 price;
+        // Valid state numbers are:
+        // 0: Off market
+        // 1: On market
+        // 2: Pending
+        uint8 state;
     }
     // First param is the property id and second one is the property details
     mapping (string => Property) private properties;
 
     uint256 public constant INITIAL_SUPPLY = 1000000;
 
-    event PropertyRegistered(string propertyId, address owner);
+    event PropertyUpdated(string propertyId, address owner);
+
+    modifier onlyOffMarket(string propertyId) {
+        // Only properties in Off market state.
+        require(properties[propertyId].state == 0);
+        _;
+    }
+
+    modifier onlyOnMarket(string propertyId) {
+        // Only properties in On market state.
+        require(properties[propertyId].state == 1);
+        _;
+    }
+
+    modifier onlyPending(string propertyId) {
+        // Only properties in On market state.
+        require(properties[propertyId].state == 2);
+        _;
+    }
 
     function RealtorToken() public {
         // First user is the contract creator.
@@ -32,6 +55,17 @@ contract RealtorToken is StandardToken, Authentication {
         // TODO: Verify the property is not registered already.
         properties[propertyId].owner = msg.sender;
         properties[propertyId].price = propertyPrice;
-        PropertyRegistered(propertyId, msg.sender);
+        properties[propertyId].state = 0;
+        PropertyUpdated(propertyId, msg.sender);
+    }
+
+    function publish(string propertyId) public onlyOffMarket(propertyId){
+        properties[propertyId].state = 1;
+        PropertyUpdated(propertyId, msg.sender);
+    }
+
+    function unpublish(string propertyId) public onlyOnMarket(propertyId){
+        properties[propertyId].state = 0;
+        PropertyUpdated(propertyId, msg.sender);
     }
 }
