@@ -63,7 +63,7 @@ export function transfer(toAddress, amount) {
                 realtorToken.setProvider(web3.currentProvider)
 
                 let realtorTokenInstance
-                
+
                 realtorToken.deployed().then(function(instance) {
                     realtorTokenInstance = instance;
                     console.log(web3.isAddress(fromAddress));
