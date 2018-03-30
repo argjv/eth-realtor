@@ -21,7 +21,25 @@ contract RealtorToken is StandardToken, Authentication {
 
     uint256 public constant INITIAL_SUPPLY = 1000000;
 
-    event PropertyRegistered(string propertyId, address owner);
+    event PropertyUpdated(string propertyId, address owner);
+
+    modifier onlyOffMarket(string propertyId) {
+        // Only properties in Off market state.
+        require(properties[propertyId].state == 0);
+        _;
+    }
+
+    modifier onlyOnMarket(string propertyId) {
+        // Only properties in On market state.
+        require(properties[propertyId].state == 1);
+        _;
+    }
+
+    modifier onlyPending(string propertyId) {
+        // Only properties in On market state.
+        require(properties[propertyId].state == 2);
+        _;
+    }
 
     function RealtorToken() public {
         // First user is the contract creator.
@@ -38,6 +56,16 @@ contract RealtorToken is StandardToken, Authentication {
         properties[propertyId].owner = msg.sender;
         properties[propertyId].price = propertyPrice;
         properties[propertyId].state = 0;
-        PropertyRegistered(propertyId, msg.sender);
+        PropertyUpdated(propertyId, msg.sender);
+    }
+
+    function publish(string propertyId) public onlyOffMarket(propertyId){
+        properties[propertyId].state = 1;
+        PropertyUpdated(propertyId, msg.sender);
+    }
+
+    function unpublish(string propertyId) public onlyOnMarket(propertyId){
+        properties[propertyId].state = 0;
+        PropertyUpdated(propertyId, msg.sender);
     }
 }
