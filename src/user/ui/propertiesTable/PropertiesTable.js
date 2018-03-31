@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Griddle from 'griddle-react';
 
 class PropertiesTable extends Component {
@@ -9,8 +9,7 @@ class PropertiesTable extends Component {
   render() {
     return (
       <div className="pure-u-1-1 reduced-font">
-        <h2>Properties list</h2>
-        <Griddle data={this.props.inPropertiesData} />
+        <Griddle data={this.props.propertiesData} />
       </div>
     );
   }

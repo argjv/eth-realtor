@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import AddPropertyFormContainer from '../../user/ui/addpropertyform/AddPropertyFormContainer'
+import PropertiesTableContainer from '../../user/ui/propertiesTable/PropertiesTableContainer'
 
 class Property extends Component {
   constructor(props, { authData }) {
@@ -12,10 +13,13 @@ class Property extends Component {
     return(
       <main className="container">
         <div className="pure-g">
-          <div className="pure-u-1-1">
+          <div className="pure-u-1-3">
             <h1>Add your property to the blockchain!</h1>
-            <p></p>
             <AddPropertyFormContainer />
+          </div>
+          <div className="pure-u-2-3">
+            <h1>Properties list</h1>
+            <PropertiesTableContainer />
           </div>
         </div>
       </main>

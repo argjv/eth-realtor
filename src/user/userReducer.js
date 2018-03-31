@@ -2,6 +2,7 @@ const initialState = {
   inTransactions: [],
   outTransactions: [],
   tmpTransactions: [],
+  properties: [],
   transactionsLastBlockUpdate: 0,
   coinbase: '',
   name: '',
@@ -28,6 +29,10 @@ const userReducer = (state = initialState, action) => {
       outTransactions: state.outTransactions.concat(action.payload.outTransactions),
       transactionsLastBlockUpdate: action.payload.transactionsLastBlockUpdate
     })
+  }
+
+  if (action.type === 'RECEIVE_PROPERTIES') {
+    return Object.assign({}, state, action.payload)
   }
 
   if (action.type === 'UPDATE_BALANCE') {
