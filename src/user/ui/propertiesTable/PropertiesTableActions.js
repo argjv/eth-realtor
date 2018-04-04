@@ -36,3 +36,9 @@ export function getProperties() {
     console.error('Web3 is not initialized.');
   }
 }
+
+export function publishProperty(id) {
+  return function(dispatch) {
+    console.log("About to publish house with ID:", id)
+  }
+}

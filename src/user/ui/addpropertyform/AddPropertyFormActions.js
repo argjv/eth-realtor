@@ -28,11 +28,15 @@ export function addProperty(propertyData) {
         realtor.deployed().then(function(instance) {
           realtorInstance = instance;
           // TODO: build a hash to use as a property id
-          console.log('Adding property: ', propertyData.address1, 'under address: ', coinbase);
-          realtorInstance.registerProperty(propertyData.address1, propertyData.price, {from: coinbase})
+          let hash = web3.sha3(JSON.stringify(propertyData));
+          console.log('Adding property: ', propertyData.address1, 'under address: ', coinbase, 'with hash:', hash);
+          realtorInstance.registerProperty(hash, propertyData.price, {from: coinbase})
           .then(function(result) {
             // If the property was added to the blockchain, add the extra info to our database
-            Object.assign(propertyData, {owner: coinbase});
+            Object.assign(propertyData, {
+              owner: coinbase,
+              ethid: hash
+            });
             let restApiClient = new RestApiClient();
             let args = {
               data: propertyData,

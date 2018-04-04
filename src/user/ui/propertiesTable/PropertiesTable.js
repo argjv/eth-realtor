@@ -7,10 +7,14 @@ class PropertiesTable extends Component {
     this.props.getProperties();
   }
 
+  onPublish(id){
+    this.props.onPublishProperty(id)
+  }
+
   render() {
     const Toolbar = ({ value }) => (
       <ButtonToolbar>
-        <Button color="primary" name="Publish">
+        <Button color="primary" name="Publish" onClick={() => this.onPublish(value)} >
           Publish
         </Button>
       </ButtonToolbar>);
@@ -26,7 +30,7 @@ class PropertiesTable extends Component {
             <ColumnDefinition id="baths" title="Baths" width={80}/>
             <ColumnDefinition id="sqft" title="Sqft" width={80}/>
             <ColumnDefinition id="price" title="Price" width={80}/>
-            <ColumnDefinition id="_id" title=" " customComponent={Toolbar} />
+            <ColumnDefinition id="ethid" title=" " width={50} customComponent={Toolbar} />
           </RowDefinition>
         </Griddle>
       </div>
