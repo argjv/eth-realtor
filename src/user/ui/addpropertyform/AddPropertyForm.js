@@ -48,8 +48,8 @@ class AddPropertyForm extends Component {
                 <label htmlFor="zip">Zip code</label>
                 <input id="zip" type="text" value={this.state.zip} onChange={this.onInputChange.bind(this)} placeholder="Zip" />
 
-                <label htmlFor="estate">Estate</label>
-                <input id="estate" type="text" value={this.state.estate} onChange={this.onInputChange.bind(this)} placeholder="Estate" />
+                <label htmlFor="state">State</label>
+                <input id="state" type="text" value={this.state.state} onChange={this.onInputChange.bind(this)} placeholder="State" />
 
                 <label htmlFor="beds">Number of bedrooms</label>
                 <input id="beds" type="text" value={this.state.beds} onChange={this.onInputChange.bind(this)} placeholder="Bedrooms" />

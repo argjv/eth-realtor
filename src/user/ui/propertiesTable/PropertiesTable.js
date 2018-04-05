@@ -25,11 +25,12 @@ class PropertiesTable extends Component {
             <ColumnDefinition id="address1" title="Address" order={1} width={180}/>
             <ColumnDefinition id="address2" title="Apt/Suite" width={80}/>
             <ColumnDefinition id="city" title="City" width={80}/>
-            <ColumnDefinition id="estate" title="State" width={80}/>
+            <ColumnDefinition id="state" title="State" width={80}/>
             <ColumnDefinition id="beds" title="Beds" width={80}/>
             <ColumnDefinition id="baths" title="Baths" width={80}/>
             <ColumnDefinition id="sqft" title="Sqft" width={80}/>
             <ColumnDefinition id="price" title="Price" width={80}/>
+            <ColumnDefinition id="status" title="Status" width={80}/>
             <ColumnDefinition id="ethid" title=" " width={50} customComponent={Toolbar} />
           </RowDefinition>
         </Griddle>

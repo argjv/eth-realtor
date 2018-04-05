@@ -35,7 +35,8 @@ export function addProperty(propertyData) {
             // If the property was added to the blockchain, add the extra info to our database
             Object.assign(propertyData, {
               owner: coinbase,
-              ethid: hash
+              ethid: hash,
+              status: 0
             });
             let restApiClient = new RestApiClient();
             let args = {

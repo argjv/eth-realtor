@@ -31,6 +31,10 @@ const userReducer = (state = initialState, action) => {
     })
   }
 
+  if (action.type === 'PUBLISH_PROPERTIES') {
+    return Object.assign({}, state, action.payload)
+  }
+
   if (action.type === 'RECEIVE_PROPERTIES') {
     return Object.assign({}, state, action.payload)
   }
