@@ -32,6 +32,9 @@ export function getProperties() {
         console.log('Fetching properties owned by ', coinbase);
         let restApiClient = new RestApiClient();
         let args = {
+          parameters: {
+            owner: coinbase
+          },
           headers: { "Content-Type": "application/json" }
         };
         restApiClient.get('http://localhost:3000/properties', args, function (data, response) {
