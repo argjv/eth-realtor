@@ -16,8 +16,17 @@ contract RealtorToken is StandardToken, Authentication {
         // 2: Pending
         uint8 state;
     }
+    struct Offer {
+        string propertyId;
+        uint256 offer;
+        uint256 submittedAtBlockNumber;
+        uint256 acceptedAtBlockNumber;
+    }
     // First param is the property id and second one is the property details
     mapping (string => Property) private properties;
+    // The first param is the address of the buyer. A buyer can only make an
+    // offer to one property at a time.
+    mapping (address => Offer) private offers;
 
     uint256 public constant INITIAL_SUPPLY = 1000000;
 
@@ -59,13 +68,31 @@ contract RealtorToken is StandardToken, Authentication {
         PropertyUpdated(propertyId, msg.sender);
     }
 
-    function publish(string propertyId) public onlyOffMarket(propertyId){
+    function publish(string propertyId) public onlyOffMarket(propertyId) {
         properties[propertyId].state = 1;
         PropertyUpdated(propertyId, msg.sender);
     }
 
-    function unpublish(string propertyId) public onlyOnMarket(propertyId){
+    function unpublish(string propertyId) public onlyOnMarket(propertyId) {
         properties[propertyId].state = 0;
+        PropertyUpdated(propertyId, msg.sender);
+    }
+
+    function submitOffer(string propertyId, uint256 offer) public onlyOnMarket(propertyId) {
+        // The buyer has enough tokens for the offer
+        require(balances[msg.sender] >= offer);
+        // The buyer haven't submitted an offer yet
+        require(!(offers[msg.sender].offer > 0));
+        // The buyer is not the owner
+        require(!(properties[propertyId].owner == msg.sender));
+        // Remove the funds from the buyer
+        balances[msg.sender] -= offer;
+        // Register the offer
+        offers[msg.sender].propertyId = propertyId;
+        offers[msg.sender].offer = offer;
+        offers[msg.sender].submittedAtBlockNumber = block.number;
+        // Change the state of the property to Pending
+        properties[propertyId].state = 2;
         PropertyUpdated(propertyId, msg.sender);
     }
 }
