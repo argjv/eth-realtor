@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import Griddle, {RowDefinition, ColumnDefinition} from 'griddle-react';
 
 class TransactionsTable extends Component {
   componentDidMount() {
@@ -7,26 +7,45 @@ class TransactionsTable extends Component {
   }
 
   render() {
+    const styleConfig = {
+      icons: {
+        TableHeadingCell: {
+          sortDescendingIcon: '▼',
+          sortAscendingIcon: '▲',
+        },
+      },
+      classNames: {
+        Row: 'row-class',
+        Table: 'table-striped, table',
+      },
+      styles: {
+        Filter: { fontSize: 18 },
+      },
+    };
     return (
       <div className="pure-u-1-1 reduced-font">
         <h2>Received transactions history</h2>
-        <BootstrapTable tableContainerClass="pure-table table-striped" data={this.props.inTransactionsData} headers={true} >
-          <TableHeaderColumn dataField='from' isKey={ true }> From</TableHeaderColumn>
-          <TableHeaderColumn dataField='time' columnClassName='td-column-string-example'>Time</TableHeaderColumn>
-          <TableHeaderColumn dataField='value' columnClassName='td-column-string-example'>Value</TableHeaderColumn>
-          <TableHeaderColumn dataField='gasPrice' columnClassName='td-column-string-example'>Gas Price</TableHeaderColumn>
-          <TableHeaderColumn dataField='gas' columnClassName='td-column-string-example'>Gas</TableHeaderColumn>
-          <TableHeaderColumn dataField='blockNumber' columnClassName='td-column-string-example'>Block Number</TableHeaderColumn>
-        </BootstrapTable>
+        <Griddle data={this.props.inTransactionsData} styleConfig={styleConfig} showFilter={false} showSettings={false}>
+          <RowDefinition>
+            <ColumnDefinition id="from" title="From" order={1}/>
+            <ColumnDefinition id="time" title="Time"/>
+            <ColumnDefinition id="value" title="Value"/>
+            <ColumnDefinition id="gasPrice" title="Gas Price"/>
+            <ColumnDefinition id="gas" title="Gas"/>
+            <ColumnDefinition id="blockNumber" title="Block Number"/>
+          </RowDefinition>
+        </Griddle>
         <h2>Sent transactions history</h2>
-        <BootstrapTable tableContainerClass="pure-table table-striped" data={this.props.outTransactionsData} headers={true} >
-          <TableHeaderColumn dataField='to' isKey={ true } >To</TableHeaderColumn>
-          <TableHeaderColumn dataField='time' columnClassName='td-column-string-example'>Time</TableHeaderColumn>
-          <TableHeaderColumn dataField='value' columnClassName='td-column-string-example'>Value</TableHeaderColumn>
-          <TableHeaderColumn dataField='gasPrice' columnClassName='td-column-string-example'>Gas Price</TableHeaderColumn>
-          <TableHeaderColumn dataField='gas' columnClassName='td-column-string-example'>Gas</TableHeaderColumn>
-          <TableHeaderColumn dataField='blockNumber' columnClassName='td-column-string-example'>Block Number</TableHeaderColumn>
-        </BootstrapTable>
+        <Griddle data={this.props.outTransactionsData} styleConfig={styleConfig} showFilter={false} showSettings={false}>
+          <RowDefinition>
+            <ColumnDefinition id="to" title="To" order={1}/>
+            <ColumnDefinition id="time" title="Time"/>
+            <ColumnDefinition id="value" title="Value"/>
+            <ColumnDefinition id="gasPrice" title="Gas Price"/>
+            <ColumnDefinition id="gas" title="Gas"/>
+            <ColumnDefinition id="blockNumber" title="Block Number"/>
+          </RowDefinition>
+        </Griddle>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.2;
 
-import 'zeppelin-solidity/contracts/token/ERC20/StandardToken.sol';
-import './Authentication.sol';
+import "zeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
+import "./Authentication.sol";
 
 contract RealtorToken is StandardToken, Authentication {
     string public name = "RealtorToken";
@@ -94,5 +94,23 @@ contract RealtorToken is StandardToken, Authentication {
         // Change the state of the property to Pending
         properties[propertyId].state = 2;
         PropertyUpdated(propertyId, msg.sender);
+    }
+
+    function acceptOffer(string propertyId, address offerOwner) public onlyPending(propertyId) {
+        // Only the owner can accept an offer.
+        require(properties[propertyId].owner == msg.sender);
+        // The offer is for the property
+        require(keccak256(offers[offerOwner].propertyId) == keccak256(propertyId));
+        
+        // Transfer funds
+        balances[msg.sender] += offers[offerOwner].offer;
+
+        // Change property ownership
+        properties[propertyId].owner = offerOwner;
+        properties[propertyId].price = offers[offerOwner].offer;
+        properties[propertyId].state = 0;
+
+        // Remove the offer
+        delete offers[offerOwner];
     }
 }

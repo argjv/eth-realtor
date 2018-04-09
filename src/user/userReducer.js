@@ -3,6 +3,7 @@ const initialState = {
   outTransactions: [],
   tmpTransactions: [],
   properties: [],
+  offers: [],
   transactionsLastBlockUpdate: 0,
   coinbase: '',
   name: '',
@@ -31,11 +32,11 @@ const userReducer = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'PUBLISH_PROPERTIES') {
+  if (action.type === 'PUBLISH_PROPERTIES' || action.type === 'RECEIVE_PROPERTIES') {
     return Object.assign({}, state, action.payload)
   }
 
-  if (action.type === 'RECEIVE_PROPERTIES') {
+  if (action.type === 'RECEIVE_OFFERS') {
     return Object.assign({}, state, action.payload)
   }
 

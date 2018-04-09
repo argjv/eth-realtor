@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PropertiesTable from './PropertiesTable'
-import { getProperties, publishProperty } from './PropertiesTableActions'
+import { getOffers, getProperties, publishProperty } from './PropertiesTableActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -10,6 +10,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getOffers: (ethid) => {
+      dispatch(getOffers(ethid))
+    },
     getProperties: () => {
       dispatch(getProperties())
     },
