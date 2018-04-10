@@ -10,8 +10,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAcceptOffer: (owner) => {
-      dispatch(acceptOffer(owner))
+    onAcceptOffer: (owner, ethid) => {
+      dispatch(acceptOffer(owner, ethid))
     }
   }
 }

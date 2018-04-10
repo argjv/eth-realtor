@@ -11,11 +11,11 @@ function acceptOffers() {
   }
 }
 
-export function acceptOffer(owner) {
+export function acceptOffer(owner, ethid) {
   let web3 = store.getState().web3.web3Instance
   if (typeof web3 !== 'undefined') {
     return function(dispatch) {
-      console.log("About to accept offer from ", owner);
+      console.log("About to accept offer from ", owner, "for property", ethid, "and owner", store.getState().user.coinbase);
       const realtorToken = contract(RealtorTokenContract)
       realtorToken.setProvider(web3.currentProvider)
 
@@ -23,8 +23,7 @@ export function acceptOffer(owner) {
 
       realtorToken.deployed().then(function(instance) {
           realtorTokenInstance = instance;
-          let propertyId;
-          return realtorTokenInstance.acceptOffer(propertyId, owner, {from: store.getState().user.coinbase});
+          return realtorTokenInstance.acceptOffer(ethid, owner, {from: store.getState().user.coinbase});
       }).then(function(result) {
           alert('Offer accepted!');
           console.log("result: ", result)

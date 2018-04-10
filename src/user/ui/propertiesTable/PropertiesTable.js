@@ -75,7 +75,7 @@ class PropertiesTable extends Component {
         <Button color="danger" onClick={this.collapse} style={{ marginBottom: '1rem' }}>Collapse</Button>
           <Card>
             <CardBody>
-              Showing offers for {this.state.ethid}>
+              Showing offers for {this.state.ethid}
               <OffersTableContainer ethid={this.state.ethid}/>
             </CardBody>
           </Card>
