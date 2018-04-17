@@ -3,7 +3,6 @@ import Wallet from './Wallet'
 import { getBalance, transfer } from './WalletActions'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('mapStateToProps: ', state)
   return {
     coinbase: state.user.coinbase,
     balance: state.user.balance

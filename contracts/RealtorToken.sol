@@ -65,26 +65,21 @@ contract RealtorToken is StandardToken, Authentication {
         properties[propertyId].owner = msg.sender;
         properties[propertyId].price = propertyPrice;
         properties[propertyId].state = 0;
-        PropertyUpdated(propertyId, msg.sender);
+        emit PropertyUpdated(propertyId, msg.sender);
     }
 
     function publish(string propertyId) public onlyOffMarket(propertyId) {
         properties[propertyId].state = 1;
-        PropertyUpdated(propertyId, msg.sender);
+        emit PropertyUpdated(propertyId, msg.sender);
     }
 
     function unpublish(string propertyId) public onlyOnMarket(propertyId) {
         properties[propertyId].state = 0;
-        PropertyUpdated(propertyId, msg.sender);
+        emit PropertyUpdated(propertyId, msg.sender);
     }
 
     function submitOffer(string propertyId, uint256 offer) public onlyOnMarket(propertyId) {
-        // The buyer has enough tokens for the offer
-        require(balances[msg.sender] >= offer);
-        // The buyer haven't submitted an offer yet
-        require(!(offers[msg.sender].offer > 0));
-        // The buyer is not the owner
-        require(!(properties[propertyId].owner == msg.sender));
+        // TODO: add checks for balance, offers and transaction owner
         // Remove the funds from the buyer
         balances[msg.sender] -= offer;
         // Register the offer
@@ -93,12 +88,13 @@ contract RealtorToken is StandardToken, Authentication {
         offers[msg.sender].submittedAtBlockNumber = block.number;
         // Change the state of the property to Pending
         properties[propertyId].state = 2;
-        PropertyUpdated(propertyId, msg.sender);
+        emit PropertyUpdated(propertyId, msg.sender);
     }
 
     function acceptOffer(string propertyId, address offerOwner) public onlyPending(propertyId) {
         // Only the owner can accept an offer.
         require(properties[propertyId].owner == msg.sender);
+
         // The offer is for the property
         require(keccak256(offers[offerOwner].propertyId) == keccak256(propertyId));
         
@@ -112,5 +108,6 @@ contract RealtorToken is StandardToken, Authentication {
 
         // Remove the offer
         delete offers[offerOwner];
+        emit PropertyUpdated(propertyId, msg.sender);
     }
 }

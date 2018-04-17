@@ -4,11 +4,15 @@ import Griddle, {RowDefinition, ColumnDefinition} from 'griddle-react';
 import { Button, ButtonToolbar } from 'reactstrap';
 
 class OffersTable extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {}
+  }
   onAccept(owner, ethid){
     this.props.onAcceptOffer(owner, ethid)
   }
 
-  componentWillReceiveProps
   render() {
     const styleConfig = {
       icons: {

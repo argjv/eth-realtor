@@ -19,13 +19,6 @@ function publishProperties() {
   }
 }
 
-export const SUBMIT_OFFERS = 'SUBMIT_OFFERS'
-function submitOffers() {
-  return {
-    type: SUBMIT_OFFERS
-  }
-}
-
 export const RECEIVE_OFFERS = 'RECEIVE_OFFERS'
 function receiveOffers(offersData) {
   return {
@@ -96,42 +89,6 @@ export function publishProperty(id) {
           console.log(err.message);
       });
     }
-  } else {
-    console.error('Web3 is not initialized.');
-  }
-}
-
-export function submitOffer(propertyId, offer) {
-  let web3 = store.getState().web3.web3Instance
-  if (typeof web3 !== 'undefined') {
-    return function(dispatch) {
-      console.log("Submitting an offer for property with ID:", propertyId);
-      const realtorToken = contract(RealtorTokenContract)
-      realtorToken.setProvider(web3.currentProvider)
-
-      let realtorTokenInstance
-      realtorToken.deployed().then(function(instance) {
-          realtorTokenInstance = instance;
-          return realtorTokenInstance.submitOffer(propertyId, offer, {from: store.getState().user.coinbase});
-      }).then(function(result) {
-        alert('Offer submitted!');
-        console.log("result: ", result)
-        let restApiClient = new RestApiClient();
-        let args = {
-          data: {
-            status: 2
-          },
-          headers: { "Content-Type": "application/json" }
-        };
-        restApiClient.put('http://localhost:3000/properties/' + propertyId, args, function (data, response) {
-          // TODO: Show a message confirming the property was registered successfully
-          console.log(data);
-          return dispatch(submitOffers())
-        })
-      }).catch(function(err) {
-          console.log(err.message);
-      });
-    }    
   } else {
     console.error('Web3 is not initialized.');
   }
