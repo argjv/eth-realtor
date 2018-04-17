@@ -1,4 +1,43 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  }
+});
+
 
 class Wallet extends Component {
     componentDidMount() {
@@ -15,27 +54,48 @@ class Wallet extends Component {
 
     render() {
         return (
-          <div className="pure-u-1-1">
-            <p>Wallet: {this.props.coinbase}</p>
-            <p>Balance: {this.props.balance} RT</p>
-            <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit.bind(this)}>
-                <fieldset>
-                    <label htmlFor="address">Address</label>
-                    <input id="address" type="text" placeholder="Address" />
-                    <span className="pure-form-message">This is a required field.</span>
-
-                    <label htmlFor="amount">Amount</label>
-                    <input id="amount" type="text" placeholder="Amount" />
-                    <span className="pure-form-message">This is a required field.</span>
-
-                    <br />
-
-                    <button type="submit" className="pure-button pure-button-primary">Transfer</button>
-                </fieldset>
-            </form>
+          <div>
+            <Typography variant="subheading">
+                Wallet: {this.props.coinbase}
+            </Typography>
+            <Typography variant="subheading">
+                Balance: {this.props.balance} RT
+            </Typography>
+                <Grid item xs={3}>
+                    <form className={this.props.classes.container} noValidate autoComplete="off">
+                        <TextField
+                            id="address"
+                            label="Address"
+                            required
+                            multiline
+                            rowsMax="4"
+                            defaultValue=""
+                            placeholder="0x89860eeE089DEE7"
+                            helperText="This is a required field."
+                            className={this.props.classes.textField}
+                            margin="normal"/>
+                        <TextField
+                            id="amount"
+                            label="Amount"
+                            type="number"
+                            className={this.props.classes.textField}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                            margin="normal"/>
+                        <Button className={this.props.classes.button} variant="raised" color="primary" onClick={(event) => this.handleSubmit(event)}>
+                            Transfer
+                            <Icon className={this.props.classes.rightIcon}>send</Icon>
+                        </Button>
+                    </form>
+                </Grid>
           </div>
         )
     }
 }
 
-export default Wallet
+Wallet.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Wallet);

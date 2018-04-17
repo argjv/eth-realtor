@@ -1,4 +1,40 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  }
+});
 
 class AddPropertyForm extends Component {
   constructor(props) {
@@ -32,45 +68,118 @@ class AddPropertyForm extends Component {
   }
 
   render() {
+  const { classes } = this.props;
     return(
-        <div>
-            <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit.bind(this)}>
-                <fieldset>
-                <label htmlFor="address1">Address</label>
-                <input id="address1" type="text" value={this.state.address1} onChange={this.onInputChange.bind(this)} placeholder="Address" />
+  <div>
+    <Grid item xs={6}>
+      <form className={classes.container} noValidate autoComplete="off">
+        <TextField
+          id="address1"
+          label="Address"
+          multiline
+          rowsMax="2"
+          value={this.state.address1}
+          onChange={(event) => this.onInputChange(event)}
+          className={classes.textField}
+          margin="normal"
+        />
+        <TextField
+          id="address2"
+          label="Apartment/suite number"
+          multiline
+          rowsMax="2"
+          value={this.state.address2}
+          onChange={(event) => this.onInputChange(event)}
+          className={classes.textField}
+          margin="normal"
+        />
+        <TextField
+          id="city"
+          label="City"
+          className={classes.textField}
+          value={this.state.city}
+          onChange={(event) => this.onInputChange(event)}
+          margin="normal"
+        />
 
-                <label htmlFor="address2">Apartment/suite number</label>
-                <input id="address2" type="text" value={this.state.address2} onChange={this.onInputChange.bind(this)} placeholder="apt/suite #" />
+        <TextField
+          id="zip"
+          label="ZIP"
+          className={classes.textField}
+          value={this.state.zip}
+          onChange={(event) => this.onInputChange(event)}
+          margin="normal"
+        />
+        <TextField
+          id="estate"
+          label="State"
+          className={classes.textField}
+          value={this.state.estate}
+          onChange={(event) => this.onInputChange(event)}
+          margin="normal"
+        />
 
-                <label htmlFor="city">City</label>
-                <input id="city" type="text" value={this.state.city} onChange={this.onInputChange.bind(this)} placeholder="City" />
+        <TextField
+          id="beds"
+          label="Beds"
+          value={this.state.beds}
+          onChange={(event) => this.onInputChange(event)}
+          type="number"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
+        <TextField
+          id="baths"
+          label="Baths"
+          value={this.state.baths}
+          onChange={(event) => this.onInputChange(event)}
+          type="number"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
+        <TextField
+          id="sqft"
+          label="Covered square footage"
+          value={this.state.sqft}
+          onChange={(event) => this.onInputChange(event)}
+          type="number"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
+        <TextField
+          id="price"
+          label="Selling Price"
+          value={this.state.price}
+          onChange={(event) => this.onInputChange(event)}
+          type="number"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
+        <Button className={this.props.classes.button} variant="raised" color="primary" onClick={(event) => this.handleSubmit(event)}>
+          Add
+        </Button>
 
-                <label htmlFor="zip">Zip code</label>
-                <input id="zip" type="text" value={this.state.zip} onChange={this.onInputChange.bind(this)} placeholder="Zip" />
-
-                <label htmlFor="state">State</label>
-                <input id="state" type="text" value={this.state.state} onChange={this.onInputChange.bind(this)} placeholder="State" />
-
-                <label htmlFor="beds">Number of bedrooms</label>
-                <input id="beds" type="text" value={this.state.beds} onChange={this.onInputChange.bind(this)} placeholder="Bedrooms" />
-
-                <label htmlFor="baths">Number of bathrooms</label>
-                <input id="baths" type="text" value={this.state.baths} onChange={this.onInputChange.bind(this)} placeholder="Bathrooms" />
-
-                <label htmlFor="sqft">Covered square footage</label>
-                <input id="sqft" type="text" value={this.state.sqft} onChange={this.onInputChange.bind(this)} placeholder="sqft" />
-
-                <label htmlFor="price">Selling price</label>
-                <input id="price" type="text" value={this.state.price} onChange={this.onInputChange.bind(this)} placeholder="Price" />
-
-                <br />
-
-                <button type="submit" className="pure-button pure-button-primary">Add</button>
-                </fieldset>
-            </form>
-        </div>
+      </form>
+  </Grid>
+</div>
     )
   }
 }
 
-export default AddPropertyForm
+AddPropertyForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(AddPropertyForm);

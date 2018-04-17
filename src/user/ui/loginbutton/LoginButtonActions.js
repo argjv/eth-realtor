@@ -1,5 +1,5 @@
 import RealtorContract from '../../../../build/contracts/RealtorToken.json'
-import { browserHistory } from 'react-router'
+import history from '../../../history'
 import store from '../../../store'
 
 const contract = require('truffle-contract')
@@ -42,20 +42,20 @@ export function loginUser() {
 
             // Used a manual redirect here as opposed to a wrapper.
             // This way, once logged in a user can still access the home page.
-            var currentLocation = browserHistory.getCurrentLocation()
+           /* var currentLocation = browserHistory.getCurrentLocation()
 
             if ('redirect' in currentLocation.query)
             {
               return browserHistory.push(decodeURIComponent(currentLocation.query.redirect))
-            }
+            }*/
 
-            return browserHistory.push('/dashboard')
+            return history.push('/dashboard')
           })
           .catch(function(result) {
             // If error, go to signup page.
             console.error('Wallet ' + coinbase + ' does not have an account! Error: ' + result)
   
-            return browserHistory.push('/signup')
+            return history.push('/signup')
           })
         })
       })

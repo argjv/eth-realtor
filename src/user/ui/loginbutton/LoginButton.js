@@ -1,10 +1,12 @@
 import React from 'react'
+//import PropTypes from 'prop-types';
+//import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 
 const LoginButton = ({ onLoginUserClick }) => {
   return(
-    <li className="pure-menu-item">
-      <a href="#" className="pure-menu-link" onClick={(event) => onLoginUserClick(event)}>Login</a>
-    </li>
+         <Button variant="raised" color="primary" onClick={(event) => onLoginUserClick(event)}>Login</Button>
+ 
   )
 }
 
