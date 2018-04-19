@@ -1,5 +1,6 @@
 import RealtorTokenContract from '../../../../build/contracts/RealtorToken.json'
 import store from '../../../store'
+import { browserHistory } from 'react-router'
 
 const RestApiClient = require('node-rest-client').Client
 const contract = require('truffle-contract')
@@ -30,7 +31,7 @@ function receiveOffers(offersData) {
 export function getProperties() {
   let web3 = store.getState().web3.web3Instance
   if (typeof web3 !== 'undefined') {
-    return function(dispatch) {
+    return function (dispatch) {
       // Get current address
       web3.eth.getCoinbase((error, coinbase) => {
         if (error) {
@@ -48,7 +49,7 @@ export function getProperties() {
         restApiClient.get('http://localhost:3000/properties', args, function (data, response) {
           // TODO: Show a message confirming the property was registered successfully
           console.log(data);
-          return dispatch(receiveProperties({properties: data}))
+          return dispatch(receiveProperties({ properties: data }))
         })
       })
     }
@@ -60,33 +61,35 @@ export function getProperties() {
 export function publishProperty(id) {
   let web3 = store.getState().web3.web3Instance
   if (typeof web3 !== 'undefined') {
-    return function(dispatch) {
+    return function (dispatch) {
       console.log("About to publish house with ID:", id);
       const realtorToken = contract(RealtorTokenContract)
       realtorToken.setProvider(web3.currentProvider)
 
       let realtorTokenInstance
 
-      realtorToken.deployed().then(function(instance) {
-          realtorTokenInstance = instance;
-          return realtorTokenInstance.publish(id, {from: store.getState().user.coinbase});
-      }).then(function(result) {
-          alert('Property published in the blockchain!');
-          console.log("result: ", result)
-          let restApiClient = new RestApiClient();
-          let args = {
-            data: {
-              status: 1
-            },
-            headers: { "Content-Type": "application/json" }
-          };
-          restApiClient.put('http://localhost:3000/properties/' + id, args, function (data, response) {
-            // TODO: Show a message confirming the property was registered successfully
-            console.log(data);
-            return dispatch(publishProperties())
-          })
-      }).catch(function(err) {
-          console.log(err.message);
+      realtorToken.deployed().then(function (instance) {
+        realtorTokenInstance = instance;
+        return realtorTokenInstance.publish(id, { from: store.getState().user.coinbase });
+      }).then(function (result) {
+        alert('Property successfuly published!');
+        console.log("result: ", result)
+        let restApiClient = new RestApiClient();
+        let args = {
+          data: {
+            status: 1
+          },
+          headers: { "Content-Type": "application/json" }
+        };
+        restApiClient.put('http://localhost:3000/properties/' + id, args, function (data, response) {
+          // TODO: Show a message confirming the property was registered successfully
+          console.log(data);
+          dispatch(publishProperties());
+          
+          return browserHistory.push('/dashboard');
+        })
+      }).catch(function (err) {
+        console.log(err.message);
       });
     }
   } else {
@@ -97,7 +100,7 @@ export function publishProperty(id) {
 export function getOffers(ethid) {
   let web3 = store.getState().web3.web3Instance
   if (typeof web3 !== 'undefined') {
-    return function(dispatch) {
+    return function (dispatch) {
       // Get current address
       web3.eth.getCoinbase((error, coinbase) => {
         if (error) {
@@ -115,7 +118,7 @@ export function getOffers(ethid) {
         restApiClient.get('http://localhost:3000/offers', args, function (data, response) {
           // TODO: Show a message confirming the property was registered successfully
           console.log(data);
-          return dispatch(receiveOffers({offers: data}))
+          return dispatch(receiveOffers({ offers: data }))
         })
       })
     }

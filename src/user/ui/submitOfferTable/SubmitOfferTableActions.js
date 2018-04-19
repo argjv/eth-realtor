@@ -47,7 +47,7 @@ export function submitOffer(propertyId, offer) {
     let web3 = store.getState().web3.web3Instance
     if (typeof web3 !== 'undefined') {
         return function (dispatch) {
-            console.log("Submitting an offer of", offer, " RT for property", propertyId);
+            console.log("Submitting an offer of ", offer, " RT for property", propertyId);
             const realtorToken = contract(RealtorTokenContract)
             realtorToken.setProvider(web3.currentProvider)
 
@@ -70,7 +70,7 @@ export function submitOffer(propertyId, offer) {
                     },
                     headers: { "Content-Type": "application/json" }
                 };
-                restApiClient.put('http://localhost:3000/offers/', args, function (data, response) {
+                restApiClient.post('http://localhost:3000/offers/', args, function (data, response) {
                     // TODO: Show a message confirming the property was registered successfully
                     console.log(data);
                     return dispatch(submitOffers())

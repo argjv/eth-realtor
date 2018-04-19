@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Griddle, {RowDefinition, ColumnDefinition} from 'griddle-react';
+import Griddle, { RowDefinition, ColumnDefinition } from 'griddle-react';
 import { Button, ButtonToolbar } from 'reactstrap';
 
 class OffersTable extends Component {
@@ -9,7 +9,7 @@ class OffersTable extends Component {
 
     this.state = {}
   }
-  onAccept(owner, ethid){
+  onAccept(owner, ethid) {
     this.props.onAcceptOffer(owner, ethid)
   }
 
@@ -51,14 +51,22 @@ class OffersTable extends Component {
         </Button>
       </ButtonToolbar>);
 
+    const griddleLayout = ({ Table, Pagination, Filter, SettingsWrapper }) => (
+      <div>
+        <Table />
+        <br />
+        Page <Pagination />
+      </div>
+    );
+
     return (
       <div className="pure-u-1-1 reduced-font">
-        <Griddle data={this.props.offersData} styleConfig={styleConfig} showFilter={false} showSettings={false}>
+        <Griddle data={this.props.offersData} styleConfig={styleConfig} components={{ Layout: griddleLayout }}>
           <RowDefinition>
-            <ColumnDefinition id="owner" title="Submitted by" order={1}/>
-            <ColumnDefinition id="offer" title="Offer"/>
-            <ColumnDefinition id="createdAt" title="First submitted"/>
-            <ColumnDefinition id="updatedAt" title="Last updated"/>
+            <ColumnDefinition id="owner" title="Submitted by" order={1} />
+            <ColumnDefinition id="offer" title="Offer" />
+            <ColumnDefinition id="createdAt" title="First submitted" />
+            <ColumnDefinition id="updatedAt" title="Last updated" />
             <ColumnDefinition id="ethid" title="Options" width={50} customComponent={enhancedWithRowData(Toolbar)} />
           </RowDefinition>
         </Griddle>

@@ -1,4 +1,5 @@
 import RealtorTokenContract from '../../../../build/contracts/RealtorToken.json'
+import { browserHistory } from 'react-router'
 import store from '../../../store'
 
 const contract = require('truffle-contract')
@@ -71,13 +72,14 @@ export function transfer(toAddress, amount) {
                     return realtorTokenInstance.transfer(toAddress, amount, {from: fromAddress});
                 }).then(function(result) {
                     alert('Transfer Successful!');
-                    console.log("result: ", result)
+                    console.log("result: ", result);
                     dispatch(transferTokens({
                         transferData: {
                             from: toAddress,
                             amount: amount
                         }
-                    }))
+                    }));
+                    return browserHistory.push('/dashboard')
                 }).catch(function(err) {
                     console.log(err.message);
                 });

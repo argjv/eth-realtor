@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Griddle, {RowDefinition, ColumnDefinition} from 'griddle-react';
+import Griddle, { RowDefinition, ColumnDefinition } from 'griddle-react';
 
 class TransactionsTable extends Component {
   componentDidMount() {
@@ -22,28 +22,34 @@ class TransactionsTable extends Component {
         Filter: { fontSize: 18 },
       },
     };
+    const griddleLayout = ({ Table, Pagination, Filter, SettingsWrapper }) => (
+      <div>
+        <Table />
+        Page <Pagination />
+      </div>
+    );
     return (
-      <div className="pure-u-1-1 reduced-font">
+      <div className="pure-u-1-1 reduced-font" >
         <h2>Received transactions history</h2>
-        <Griddle data={this.props.inTransactionsData} styleConfig={styleConfig} showFilter={false} showSettings={false}>
+        <Griddle data={this.props.inTransactionsData} styleConfig={styleConfig} components={{ Layout: griddleLayout }}>
           <RowDefinition>
-            <ColumnDefinition id="from" title="From" order={1}/>
-            <ColumnDefinition id="time" title="Time"/>
-            <ColumnDefinition id="value" title="Value"/>
-            <ColumnDefinition id="gasPrice" title="Gas Price"/>
-            <ColumnDefinition id="gas" title="Gas"/>
-            <ColumnDefinition id="blockNumber" title="Block Number"/>
+            <ColumnDefinition id="from" title="From" order={1} />
+            <ColumnDefinition id="time" title="Time" />
+            <ColumnDefinition id="value" title="Value" />
+            <ColumnDefinition id="gasPrice" title="Gas Price" />
+            <ColumnDefinition id="gas" title="Gas" />
+            <ColumnDefinition id="blockNumber" title="Block Number" />
           </RowDefinition>
         </Griddle>
         <h2>Sent transactions history</h2>
-        <Griddle data={this.props.outTransactionsData} styleConfig={styleConfig} showFilter={false} showSettings={false}>
+        <Griddle data={this.props.outTransactionsData} styleConfig={styleConfig} components={{ Layout: griddleLayout }}>
           <RowDefinition>
-            <ColumnDefinition id="to" title="To" order={1}/>
-            <ColumnDefinition id="time" title="Time"/>
-            <ColumnDefinition id="value" title="Value"/>
-            <ColumnDefinition id="gasPrice" title="Gas Price"/>
-            <ColumnDefinition id="gas" title="Gas"/>
-            <ColumnDefinition id="blockNumber" title="Block Number"/>
+            <ColumnDefinition id="to" title="To" order={1} />
+            <ColumnDefinition id="time" title="Time" />
+            <ColumnDefinition id="value" title="Value" />
+            <ColumnDefinition id="gasPrice" title="Gas Price" />
+            <ColumnDefinition id="gas" title="Gas" />
+            <ColumnDefinition id="blockNumber" title="Block Number" />
           </RowDefinition>
         </Griddle>
       </div>

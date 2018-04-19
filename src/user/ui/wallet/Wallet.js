@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 
 class Wallet extends Component {
     componentDidMount() {
@@ -18,21 +19,18 @@ class Wallet extends Component {
           <div className="pure-u-1-1">
             <p>Wallet: {this.props.coinbase}</p>
             <p>Balance: {this.props.balance} RT</p>
-            <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit.bind(this)}>
-                <fieldset>
-                    <label htmlFor="address">Address</label>
-                    <input id="address" type="text" placeholder="Address" />
-                    <span className="pure-form-message">This is a required field.</span>
-
-                    <label htmlFor="amount">Amount</label>
-                    <input id="amount" type="text" placeholder="Amount" />
-                    <span className="pure-form-message">This is a required field.</span>
-
-                    <br />
-
-                    <button type="submit" className="pure-button pure-button-primary">Transfer</button>
-                </fieldset>
-            </form>
+            <InputGroup>
+                <InputGroupAddon addonType="prepend">Send to</InputGroupAddon>
+                <Input id="address" placeholder="ethereum address..." />
+            </InputGroup>
+            <br />
+            <InputGroup>
+                <InputGroupAddon addonType="prepend">Amount</InputGroupAddon>
+                <Input id="amount" placeholder="Amount" type="number" step="1" />
+                <InputGroupAddon addonType="append">.00</InputGroupAddon>
+            </InputGroup>
+            <br />
+            <button type="submit" className="pure-button pure-button-primary" onClick={this.handleSubmit.bind(this)} >Transfer</button>
           </div>
         )
     }
