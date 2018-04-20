@@ -91,12 +91,9 @@ contract RealtorToken is StandardToken, Authentication {
         emit PropertyUpdated(propertyId, msg.sender);
     }
 
-    function acceptOffer(string propertyId, address offerOwner) public onlyPending(propertyId) {
-        // Only the owner can accept an offer.
-        require(properties[propertyId].owner == msg.sender);
-
-        // The offer is for the property
-        require(keccak256(offers[offerOwner].propertyId) == keccak256(propertyId));
+    function acceptOffer(string propertyId, address offerOwner) public payable onlyPending(propertyId) {
+        // TODO: verify only the owner can accept an offer.
+        // TODO: verify the offer is for the property
         
         // Transfer funds
         balances[msg.sender] += offers[offerOwner].offer;
