@@ -24,4 +24,4 @@ truffle migrate
 npm run start
 ```
 
-This will start a server in http://localhost:3000 or in the next available port if it's in use.
+This will start a server in http://localhost:3001 or in the next available port if it's in use.
