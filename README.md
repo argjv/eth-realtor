@@ -25,3 +25,4 @@ npm run start
 ```
 
 This will start a server in http://localhost:3001 or in the next available port if it's in use.
+NOTE: Make sure that api-realtor is running on port 3000, clone the repository from https://github.com/argjv/api-realtor
